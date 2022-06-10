@@ -94,6 +94,15 @@ flask run
 deactivate
 ```
 
+## Database : Postgres
+´´´bash
+usuario@host:~$ sudo -u postgres psql
+´´´
+
+´´´bash
+postgres=# create database db_slp;
+´´´
+
 
 ## Implementar (*Deploy*) utilizando Heroku Git
 

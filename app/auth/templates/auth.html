@@ -5,10 +5,29 @@
 {% block content %}
 
 
-<form action="" method="POST">
-    <h3>Login</h3>
-    <input type="submit" value="Entrar" id="pwd_btn">
-    <h5><a href="/create_user">Criar uma conta</a></h5>
-</form>
+<!-- <form action="" method="POST"> -->
+    <!-- <h3>Login</h3> -->
+    <!-- <input type="submit" value="Entrar" id="pwd_btn"> -->
+    <!-- <h5><a href="/create_user">Criar uma conta</a></h5> -->
+<!-- </form> -->
+
+    <form action="" method="POST">
+        <h3>Login</h3>
+        <div>
+            {{form.name.label}}
+            {{form.name(size=30)}}
+        </div>
+        <div>
+            {{form.email.label}}
+            {{form.email}}
+        </div>
+        <div>
+            {{form.password.label}}
+            {{form.password}}
+        </div>
+        <div>
+            {{form.submit}}
+        </div>
+    </form>
 
 {% endblock %}
