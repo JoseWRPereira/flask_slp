@@ -12,6 +12,13 @@
             <header>
             </header>
             <main>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p>{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 {% block content%} {% endblock %}
             </main>
             <aside>
@@ -45,7 +52,6 @@
                 </div>
             </aside>
             <footer>
-
             </footer>
         </div>
     </body>

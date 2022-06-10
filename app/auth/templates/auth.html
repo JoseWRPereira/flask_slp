@@ -11,19 +11,41 @@
     <!-- <h5><a href="/create_user">Criar uma conta</a></h5> -->
 <!-- </form> -->
 
-    <form action="" method="POST">
+    <form method="POST" action="">
         <h3>Login</h3>
+        {{ form.csrf_token }}
         <div>
             {{form.name.label}}
-            {{form.name(size=30)}}
+            {{form.name}}
+                {% if form.name.errors %}
+                <ul>
+                    {% for error in form.name.errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
         </div>
         <div>
             {{form.email.label}}
             {{form.email}}
+                {% if form.email.errors %}
+                <ul>
+                    {% for error in form.email.errors %}
+                        <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
         </div>
         <div>
             {{form.password.label}}
             {{form.password}}
+                {% if form.password.errors %}
+                <ul>
+                    {% for error in form.password.errors %}
+                        <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif%}
         </div>
         <div>
             {{form.submit}}
