@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, url_for
 from flask import flash
-from .forms import AuthForm
+from .forms import AuthForm, UserNew
 from app.db.dbcon import DBConn
 from flask import session
 
@@ -40,3 +40,33 @@ def auth():
 def auth_success():
     return "Autenticado com sucesso!"
 
+@auth_bp.route('/user_new', methods=['GET', 'POST'])
+def user_new():
+    form = UserNew()
+    if form.validate_on_submit():
+        if form.errors:
+            flash(form.errors, 'alert')
+            return redirect(url_for('auth_bp.user_new'))
+        else:
+            if form.password.data != form.password_confirm.data:
+                flash("Senhas diferentes!", 'alert')
+                return redirect(url_for('auth_bp.user_new'))
+            else:
+                db = DBConn()
+
+                user_id  = db.sql_fetch("SELECT id FROM users WHERE email='{}';".format(str(form.email.data) ))
+                if user_id:
+                    flash('Usuário já cadastrado!','alert')
+                    return redirect(url_for('auth_bp.user_new'))
+                else:
+                    db.sql_cmd("INSERT INTO users ( name, email, password, admin) VALUES ('{}','{}','{}',False);".format( form.name.data, form.email.data, form.password.data) )
+                    return redirect(url_for('auth_bp.user_list'))
+    else:
+        return render_template('user_new.html', form=form )
+
+
+@auth_bp.route('/user_list', methods=['GET'])
+def user_list():
+    db = DBConn()
+    lst = db.sql_fetch("SELECT * from users;")
+    return "{}".format(lst)
