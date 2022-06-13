@@ -60,7 +60,7 @@ def user_new():
                     return redirect(url_for('auth_bp.user_new'))
                 else:
                     db.sql_cmd("INSERT INTO users ( name, email, password, admin) VALUES ('{}','{}','{}',False);".format( form.name.data, form.email.data, form.password.data) )
-                    return redirect(url_for('auth_bp.user_list'))
+                    return redirect(url_for('api_bp.api_v1_users'))
     else:
         return render_template('user_new.html', form=form )
 
