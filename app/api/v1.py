@@ -16,10 +16,10 @@ def api_v1_users():
     users = db.sql_fetch("SELECT * from users;")
     header = ["id", "name", "email", "password", "nif", "admin"]
 
-    dicio = []
+    # dicio = []
     for user in users:
         dicio.append( dict( zip(header, user)) )
 
-    response = make_response( jsonify(dicio, 200) )
+    response = make_response( jsonify(dicio), 200 )
     response.headers["Content-Type"] = "application/json"
     return response
