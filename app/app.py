@@ -12,5 +12,3 @@ app.register_blueprint(api_bp)
 @app.route("/")
 def index():
     return render_template('index.html')
-
-
